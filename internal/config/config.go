@@ -132,6 +132,20 @@ func HandlerAddFeed(s *State, cmd Command) error {
 	return nil
 }
 
+func HandlerFeeds(s *State, cmd Command) error {
+	if len(cmd.Args) != 0 {
+		return errors.New("error: incorrect number of arguments provided to the 'feeds' command")
+	}
+	feeds, err := s.Db.ListFeeds(context.Background())
+	if err != nil {
+		return errors.New("error listing feeds")
+	}
+	for _, feed := range feeds {
+		fmt.Printf("Feed Name: %v, URL: %v, Created by: %v\n", feed.Name, feed.Url, feed.Name_2)
+	}
+	return nil
+}
+
 func HandlerLogin(s *State, cmd Command) error {
 	if len(cmd.Args) != 1 {
 		return errors.New("error: either no username was provided or too many usernames were provided")

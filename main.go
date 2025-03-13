@@ -38,6 +38,7 @@ func main() {
 	command_registry.Register("users", config.HandlerListUsers)
 	command_registry.Register("agg", config.HandlerAgg)
 	command_registry.Register("addfeed", config.HandlerAddFeed)
+	command_registry.Register("feeds", config.HandlerFeeds)
 	err1 := command_registry.Run(&main_state, user_cmd)
 	if err1 != nil {
 		fmt.Println(err1)
