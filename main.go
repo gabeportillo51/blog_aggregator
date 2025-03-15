@@ -37,8 +37,12 @@ func main() {
 	command_registry.Register("reset", config.HandlerReset)
 	command_registry.Register("users", config.HandlerListUsers)
 	command_registry.Register("agg", config.HandlerAgg)
-	command_registry.Register("addfeed", config.HandlerAddFeed)
+	command_registry.Register("addfeed", config.MiddlewareLoggedIn(config.HandlerAddFeed))
 	command_registry.Register("feeds", config.HandlerFeeds)
+	command_registry.Register("follow", config.MiddlewareLoggedIn(config.HandlerFollow))
+	command_registry.Register("following", config.MiddlewareLoggedIn(config.HandlerFollowing))
+	command_registry.Register("unfollow", config.MiddlewareLoggedIn(config.HandlerUnfollow))
+	command_registry.Register("browse", config.MiddlewareLoggedIn(config.HandlerBrowse))
 	err1 := command_registry.Run(&main_state, user_cmd)
 	if err1 != nil {
 		fmt.Println(err1)
